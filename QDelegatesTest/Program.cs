@@ -8,7 +8,8 @@ namespace QDelegatesTest
 		{
 			var myCar = new QCar();
 			myCar.RegiterCallback(Message);
-			myCar.RegiterCallback(new QCar.SendingCalbackDelegate (NewMessage));
+			var listener = new Listener();
+			myCar.RegiterCallback(new QCar.SendingCalbackDelegate(listener.NewMessage));
 			for (int i = 0; i < 100; i++)
 			{
 				myCar.IncreaseSpead(1);
@@ -18,15 +19,20 @@ namespace QDelegatesTest
 
 		}
 
+		
 		static void Message(string str)
 		{
 			Console.WriteLine(str);
 		}
-		static void NewMessage(string str)
-		{
-			Console.WriteLine("Testing" + str);
-		}
+		
 
+	}
+	public class Listener
+	{
+		public void NewMessage(string str)
+		{
+			Console.WriteLine("Listener: " + str);
+		}
 	}
 	public class QCar
 	{
