@@ -10,30 +10,34 @@ namespace QDelegatesTest
 			myCar.RegiterCallback(Message);
 			var listener = new Listener();
 			myCar.RegiterCallback(new QCar.SendingCalbackDelegate(listener.NewMessage));
+			myCar.RegiterCallback(listener.NewMessage2);
 			for (int i = 0; i < 100; i++)
 			{
 				myCar.IncreaseSpead(1);
 			}
 
 			Console.ReadLine();
-
 		}
-
 		
 		static void Message(string str)
 		{
 			Console.WriteLine(str);
-		}
-		
-
+		}		
 	}
+
 	public class Listener
 	{
 		public void NewMessage(string str)
 		{
 			Console.WriteLine("Listener: " + str);
 		}
+
+		public void NewMessage2(string str)
+		{
+			Console.WriteLine("Simple Message: " + str);
+		}
 	}
+
 	public class QCar
 	{
 		public delegate void SendingCalbackDelegate(string str);
