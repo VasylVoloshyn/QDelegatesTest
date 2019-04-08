@@ -8,7 +8,7 @@ namespace QDelegatesTest
 		{
 			var myCar = new QCar();
 			myCar.RegiterCallback(Message);
-
+			myCar.RegiterCallback(new QCar.SendingCalbackDelegate (NewMessage));
 			for (int i = 0; i < 100; i++)
 			{
 				myCar.IncreaseSpead(1);
@@ -21,6 +21,10 @@ namespace QDelegatesTest
 		static void Message(string str)
 		{
 			Console.WriteLine(str);
+		}
+		static void NewMessage(string str)
+		{
+			Console.WriteLine("Testing" + str);
 		}
 
 	}
@@ -40,7 +44,7 @@ namespace QDelegatesTest
 			Spead += incrSpeadAmount;
 			if (Spead % 10 == 0)
 			{
-				listOfDelegates.Invoke(String.Format("Spead amount increased. New sepead = {0}", Spead));
+				listOfDelegates(String.Format("Spead amount increased. New sepead = {0}", Spead));
 			}
 		}
 	}
