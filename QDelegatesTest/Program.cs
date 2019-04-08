@@ -17,6 +17,7 @@ namespace QDelegatesTest
 			Console.ReadLine();
 
 		}
+
 		static void Message(string str)
 		{
 			Console.WriteLine(str);
