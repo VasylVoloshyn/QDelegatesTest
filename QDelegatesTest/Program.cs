@@ -11,6 +11,7 @@ namespace QDelegatesTest
 			var listener = new Listener();
 			myCar.RegiterCallback(new QCar.SendingCalbackDelegate(listener.NewMessage));
 			myCar.RegiterCallback(listener.NewMessage2);
+			myCar.RegisterActionDelegate(Message);
 			for (int i = 0; i < 100; i++)
 			{
 				myCar.IncreaseSpead(1);
@@ -23,6 +24,7 @@ namespace QDelegatesTest
 		{
 			Console.WriteLine(str);
 		}		
+		
 	}
 
 	public class Listener
@@ -47,6 +49,12 @@ namespace QDelegatesTest
 			listOfDelegates += methodName;
 		}
 
+		private Action<string> actionDelegate;
+		public void RegisterActionDelegate(Action<string> actionMethod)
+		{
+			actionDelegate += actionMethod;
+		}
+
 		public string Name { get; set; }
 		public int Spead { get; set; }
 		public void IncreaseSpead(int incrSpeadAmount)
@@ -55,6 +63,7 @@ namespace QDelegatesTest
 			if (Spead % 10 == 0)
 			{
 				listOfDelegates(String.Format("Spead amount increased. New sepead = {0}", Spead));
+				actionDelegate("Action:");
 			}
 		}
 	}
