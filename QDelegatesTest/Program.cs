@@ -12,14 +12,22 @@ namespace QDelegatesTest
 			myCar.RegiterCallback(new QCar.SendingCalbackDelegate(listener.NewMessage));
 			myCar.RegiterCallback(listener.NewMessage2);
 			myCar.RegisterActionDelegate(Message);
+			myCar.RegisterFuncDelegate(IntMessage);
 			for (int i = 0; i < 100; i++)
 			{
 				myCar.IncreaseSpead(1);
 			}
-
+			var z = IntMessage("aaa", 12);
+			Console.WriteLine("Z = " + z.ToString());
 			Console.ReadLine();
 		}
 		
+		static int IntMessage (string msg, int spead )
+		{
+			Console.WriteLine("Func:" + spead.ToString());
+			return spead;
+		}
+
 		static void Message(string str)
 		{
 			Console.WriteLine(str);
@@ -55,6 +63,11 @@ namespace QDelegatesTest
 			actionDelegate += actionMethod;
 		}
 
+		private Func<string, int, int> funcDelegate;
+		public void RegisterFuncDelegate(Func<string, int, int> funcMethod)
+		{
+			funcDelegate += funcMethod;
+		}
 		public string Name { get; set; }
 		public int Spead { get; set; }
 		public void IncreaseSpead(int incrSpeadAmount)
@@ -64,6 +77,7 @@ namespace QDelegatesTest
 			{
 				listOfDelegates(String.Format("Spead amount increased. New sepead = {0}", Spead));
 				actionDelegate("Action:");
+				funcDelegate("Func:", Spead);
 			}
 		}
 	}
